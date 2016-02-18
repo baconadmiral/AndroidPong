@@ -28,6 +28,8 @@ public class GameState {
     final int _bottomBatY = _screenHeight - 20;
     final int _batSpeed = 3;
 
+    boolean gameBeenOne = false;
+
     public GameState()
     {
     }
@@ -46,6 +48,9 @@ public class GameState {
             _ballY = _screenHeight/2;
             _ballVelocityX = 4;
             _ballVelocityY = 7;
+
+            //Bottom Wins!
+            gameBeenOne = true;
         }
         else if(_ballY > _screenHeight)
         {
@@ -53,6 +58,9 @@ public class GameState {
             _ballY = _screenHeight/2;
             _ballVelocityX = -4;
             _ballVelocityY = -7;
+
+            //Top Wins!
+            gameBeenOne = true;
         }
 
         //Collisions with the sides
@@ -120,23 +128,32 @@ public class GameState {
     //the draw method
     public void draw(Canvas canvas, Paint paint) {
 
+        if(canvas != null && paint != null)
+        {
 //Clear the screen
-        canvas.drawRGB(20, 20, 20);
+            canvas.drawRGB(20, 20, 20);
 
 //set the colour
-        paint.setARGB(200, 0, 200, 0);
+            paint.setARGB(200, 0, 200, 0);
 
 //draw the ball
-        canvas.drawCircle(_ballX, _ballY, _ballSize, paint);
+            canvas.drawCircle(_ballX, _ballY, _ballSize, paint);
         /*canvas.drawRect(new Rect(_ballX,_ballY,_ballX + _ballSize,_ballY + _ballSize),
                 paint);*/
 
 //draw the bats
-        canvas.drawRect(new Rect(_topBatX, _topBatY, _topBatX + _batLength,
-                _topBatY + _batHeight), paint); //top bat
-        canvas.drawRect(new Rect(_bottomBatX, _bottomBatY, _bottomBatX + _batLength,
-                _bottomBatY + _batHeight), paint); //bottom bat
-
+            canvas.drawRect(new Rect(_topBatX, _topBatY, _topBatX + _batLength,
+                    _topBatY + _batHeight), paint); //top bat
+            canvas.drawRect(new Rect(_bottomBatX, _bottomBatY, _bottomBatX + _batLength,
+                    _bottomBatY + _batHeight), paint); //bottom bat
+        }
     }
+
+    public boolean isGameWon()
+    {
+        return gameBeenOne;
+    }
+
+
 }
 
