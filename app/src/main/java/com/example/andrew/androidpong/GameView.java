@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -39,11 +38,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback
         thread = new GameThread(holder, context, handler);
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent msg) {
-        return thread.getGameState().keyPressed(keyCode, msg);
-    }
-
     //Implemented as part of the SurfaceHolder.Callback interface
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
@@ -75,9 +69,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback
 
     private void sendVictoryMail()
     {
+        //Implicit intent call
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        //sendIntent.putExtra(Intent.EXTRA_INTENT, "I am the Winnar ot Teh PongZ!");
         sendIntent.setType("text/plain");
         context.startActivity(sendIntent);
     }

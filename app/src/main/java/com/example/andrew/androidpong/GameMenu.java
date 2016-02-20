@@ -18,6 +18,7 @@ public class GameMenu extends Activity {
 
     public void startGame(View view)
     {
+        //Explicit intent Call
         Intent i = new Intent(GameMenu.this, GameActivity.class);
         startActivity(i);
     }

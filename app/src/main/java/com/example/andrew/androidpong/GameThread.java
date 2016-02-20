@@ -16,23 +16,23 @@ import android.view.WindowManager;
 public class GameThread extends Thread implements Runnable{
 
     /** Handle to the surface manager object we interact with */
-    private SurfaceHolder _surfaceHolder;
-    private Paint _paint;
-    private GameState _state;
+    private SurfaceHolder surfaceHolder;
+    private Paint paint;
+    private GameState state;
     private boolean finished;
     private Handler handler;
     private Context context;
 
     public GameThread(SurfaceHolder surfaceHolder, Context context, Handler handler)
     {
-        _surfaceHolder = surfaceHolder;
-        _paint = new Paint();
+        this.surfaceHolder = surfaceHolder;
+        paint = new Paint();
 
         WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics metrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(metrics);
 
-        _state = new GameState(metrics.heightPixels, metrics.widthPixels);
+        state = new GameState(metrics.heightPixels, metrics.widthPixels);
         this.handler = handler;
         this.context = context;
     }
@@ -42,11 +42,11 @@ public class GameThread extends Thread implements Runnable{
         finished = false;
         while(!finished)
         {
-            Canvas canvas = _surfaceHolder.lockCanvas();
-            _state.update();
-            _state.draw(canvas,_paint);
-            _surfaceHolder.unlockCanvasAndPost(canvas);
-            if(_state.isGameWon())
+            Canvas canvas = surfaceHolder.lockCanvas();
+            state.update();
+            state.draw(canvas, paint);
+            surfaceHolder.unlockCanvasAndPost(canvas);
+            if(state.isGameWon())
             {
                 stopGame();
                 ((Activity)context).finish();
@@ -59,7 +59,7 @@ public class GameThread extends Thread implements Runnable{
 
     public GameState getGameState()
     {
-        return _state;
+        return state;
     }
 
     public void stopGame()
