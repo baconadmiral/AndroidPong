@@ -12,26 +12,48 @@ import android.view.MotionEvent;
 public class GameState {
 
     //screen width and height
-    final int _screenWidth = 1000;
-    final int _screenHeight = 1600;
+    int _screenWidth = 1000;
+    int _screenHeight = 1600;
 
     //The ball
-    final int _ballSize = 30;
-    float _ballX = 100; 	float _ballY = 100;
-    float _ballVelocityX = 6; 	float _ballVelocityY = 6;
+    int _ballSize;
+    float _ballX;
+    float _ballY;
+    float _ballVelocityX;
+    float _ballVelocityY;
 
     //The bats
-    final int _batLength = 300;	final int _batHeight = 10;
-    int _topBatX = (_screenWidth/2) - (_batLength / 2);
-    final int _topBatY = 20;
-    int _bottomBatX = (_screenWidth/2) - (_batLength / 2);
-    final int _bottomBatY = _screenHeight - 20;
-    final int _batSpeed = 3;
+    int _batLength;
+    int _batHeight;
+    int _topBatX;
+    int _topBatY;
+    int _bottomBatX;
+
+    int _bottomBatY;
+    int _batSpeed;
 
     boolean gameBeenOne = false;
 
-    public GameState()
+    public GameState(int screenHeight, int screenWidth)
     {
+        _screenHeight = screenHeight;
+        _screenWidth = screenWidth;
+
+        //The ball
+        _ballSize = 30;
+        _ballX = 100;
+        _ballY = 100;
+        _ballVelocityX = 6;
+        _ballVelocityY = 6;
+
+        //The bats
+        _batLength = 300;
+        _batHeight = 10;
+        _topBatX = (_screenWidth/2) - (_batLength / 2);
+        _topBatY = 20;
+        _bottomBatX = (_screenWidth/2) - (_batLength / 2);
+        _bottomBatY = _screenHeight - 80;
+        _batSpeed = 3;
     }
 
     //The update method
@@ -70,7 +92,7 @@ public class GameState {
         //Collisions with the bats
         if(_ballX  > _topBatX && _ballX < _topBatX+_batLength && _ballY - _ballSize < _topBatY  + _batHeight)
         {
-            xDirectionBounce(_ballX - findCenter(_topBatX, _batLength));
+            //xDirectionBounceTop(_ballX - findCenter(_topBatX, _batLength));
             _ballVelocityY *= -1.01;
         }
 
@@ -79,7 +101,7 @@ public class GameState {
         if(_ballX > _bottomBatX && _ballX < _bottomBatX+_batLength
                 && _ballY + _ballSize/2 > _bottomBatY - _batHeight)
         {
-            xDirectionBounce(_ballX - findCenter(_topBatX, _batLength));
+            //xDirectionBounceBottom(_ballX - findCenter(_topBatX, _batLength));
             _ballVelocityY *= -1.01;
         }
 
@@ -90,12 +112,20 @@ public class GameState {
         return (xCoordinate + length)/2;
     }
 
-    private void xDirectionBounce(float bounceAngle) {
+    private void xDirectionBounceTop(float bounceAngle) {
         if (bounceAngle > 0) {
             _ballVelocityX *= -1.01;
         }
         else
             _ballVelocityX *= 1.01;
+    }
+
+    private void xDirectionBounceBottom(float bounceAngle) {
+        if (bounceAngle > 0) {
+            _ballVelocityX *= 1.01;
+        }
+        else
+            _ballVelocityX *= -1.01;
     }
 
     public boolean keyPressed(int keyCode, KeyEvent msg)

@@ -6,7 +6,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Message;
+import android.util.DisplayMetrics;
 import android.view.SurfaceHolder;
+import android.view.WindowManager;
 
 /**
  * Created by Andrew on 2/9/2016.
@@ -25,7 +27,12 @@ public class GameThread extends Thread implements Runnable{
     {
         _surfaceHolder = surfaceHolder;
         _paint = new Paint();
-        _state = new GameState();
+
+        WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics metrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(metrics);
+
+        _state = new GameState(metrics.heightPixels, metrics.widthPixels);
         this.handler = handler;
         this.context = context;
     }
