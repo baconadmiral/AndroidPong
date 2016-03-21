@@ -12,22 +12,16 @@ public class GameMenu extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+
     }
 
     public void startGame(View view)
     {
-        //Explicit intent Call
-        Intent i = new Intent(GameMenu.this, GameActivity.class);
-        startActivity(i);
+
     }
 
     public void quitGame(View view)
     {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+
     }
 }
