@@ -1,7 +1,6 @@
 package com.example.andrew.androidpong;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -20,22 +19,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback
     private boolean gameRunning = false;
 
     public GameView(Context context, AttributeSet attrs) {
-        super(context, attrs);
 
-        //So we can listen for events...
-        this.context = context;
-        SurfaceHolder holder = getHolder();
-        holder.addCallback(this);
-        setFocusable(true);
-        handler = new Handler(){
-            @Override
-        public void handleMessage(Message msg){
-                sendVictoryMail();
-            }
-        };
-
-        //and instantiate the thread
-        thread = new GameThread(holder, context, handler);
     }
 
     //Implemented as part of the SurfaceHolder.Callback interface
@@ -64,15 +48,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback
 * calls getGameState().motionDetected() if there’s a touch on the screen.
 */
     public boolean onTouchEvent(MotionEvent event) {
-        return thread.getGameState().motionDetected(event);
     }
 
     private void sendVictoryMail()
     {
-        //Implicit intent call
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.setType("text/plain");
-        context.startActivity(sendIntent);
+
     }
 }
