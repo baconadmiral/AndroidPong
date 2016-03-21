@@ -33,13 +33,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback
     //Implemented as part of the SurfaceHolder.Callback interface
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-            thread.start();
+
     }
 
     //Implemented as part of the SurfaceHolder.Callback interface
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-            thread.stopGame();
+
     }
 
     /*
